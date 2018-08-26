@@ -27,9 +27,15 @@ class Svg {
       entries: ['view'],
     };
     const exposeAll: ExposeAll = { kind: 'ALL' };
+    const exposeHtml: ExposeSome<string> = {
+      kind: 'SOME',
+      entries: ['Html'],
+    };
+
     const imports = [
       { module: 'Svg', exposing: exposeAll },
       { module: 'Svg.Attributes', exposing: exposeAll },
+      { module: 'Html', exposing: exposeHtml },
     ];
     const success = true;
 
@@ -61,6 +67,7 @@ class Svg {
     };
 
     return codeBlock`
+    view: Html msg
     view =
       svg [${svgAttributesToElm(this.attributes)}] [${svgChildrenToElm(
       this.children,

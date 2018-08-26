@@ -14,5 +14,7 @@ test('it can generate an elm module', async () => {
   expect(output).toContain('module Search1 exposing (view)');
   expect(output).toContain('import Svg exposing (..)');
   expect(output).toContain('import Svg.Attributes exposing (..)');
+  expect(output).toContain('import Html exposing (Html)');
+  expect(output).toContain('view: Html msg');
   expect(output).toContain((parserResult as ElmModule).viewBody.trim());
 });
