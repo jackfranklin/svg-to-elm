@@ -27,10 +27,16 @@ interface XmlToJsResult {
   svg: XmlElement;
 }
 
+const ATTRIBUTE_BLACKLIST = ['xmlns'];
+
+const notOnBlacklist = (key: string) => ATTRIBUTE_BLACKLIST.indexOf(key) === -1;
+
 const parseAttributesFromElement = (element: XmlElement): Attribute[] =>
-  Object.keys(element.$).map(key => {
-    return { name: key, value: element.$[key] };
-  });
+  Object.keys(element.$)
+    .filter(notOnBlacklist)
+    .map(key => {
+      return { name: key, value: element.$[key] };
+    });
 
 const parseChildren = (element: XmlElement): Child[] =>
   Object.keys(element)

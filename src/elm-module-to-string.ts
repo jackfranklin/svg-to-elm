@@ -31,6 +31,8 @@ const elmModuleToString = (
   return codeBlock`
     module ${elmModule.moduleName}${generateExports(elmModule.moduleExposing)}
     ${generateImports(elmModule.imports)}
+
+
     ${elmModule.viewBody}
   `;
 };

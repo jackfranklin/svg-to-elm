@@ -1,3 +1,4 @@
+import { codeBlock } from 'common-tags';
 import { ElmModule, ExposeAll, ExposeSome } from './types';
 
 export type Attribute = {
@@ -51,7 +52,7 @@ class Svg {
       return children
         .map(child => {
           return `
-        ${child.element} [${svgAttributesToElm(
+        Svg.${child.element} [${svgAttributesToElm(
             child.attributes,
           )}] [${svgChildrenToElm(child.children)}]
         `;
@@ -59,7 +60,7 @@ class Svg {
         .join(', ');
     };
 
-    return `
+    return codeBlock`
     view =
       svg [${svgAttributesToElm(this.attributes)}] [${svgChildrenToElm(
       this.children,

@@ -1,5 +1,6 @@
 import { ElmModule } from './types';
 import * as fs from 'fs';
+import elmModuleToString from './elm-module-to-string';
 
 interface Options {
   elmFormatPath?: string;
@@ -17,6 +18,18 @@ const writeElmToDisk = (
 ): Promise<WriteResult> => {
   return new Promise((resolve, reject) => {
     const elmModuleAsString = elmModuleToString(module);
+    fs.writeFile(
+      options.outputPath,
+      elmModuleAsString,
+      { encoding: 'utf8' },
+      err => {
+        if (err) resolve({ success: false, error: err });
+
+        resolve({
+          success: true,
+        });
+      },
+    );
   });
 };
 
