@@ -22,3 +22,5 @@ Options:
 Examples:
   svg-to-elm parse --file foo.svg --output Foo.elm --module-name Foo
 ```
+
+Huge thanks goes to the creator of https://level.app/svg-to-elm for the initial idea and approach - I've just wrapped it up in a command line module!
