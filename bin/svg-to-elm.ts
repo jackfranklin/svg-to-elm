@@ -15,9 +15,11 @@ const argv = yargs
   .alias('f', 'file')
   .alias('o', 'output')
   .alias('m', 'module-name')
+  .alias('b', 'banner')
   .describe('f', 'The SVG to parse')
   .describe('o', 'The destination to write to')
   .describe('m', 'The name of the Elm module')
+  .describe('b', 'A code comment to put in each file.')
   .describe(
     'elm-version',
     'The version of Elm to use [0.18 or 0.19]. This is passed to elm-format if you use it.',
@@ -43,6 +45,7 @@ parser
         outputPath: argv.o,
         elmFormatElmVersion: argv.elmVersion,
         elmFormatPath: argv.elmFormatPath,
+        banner: argv.b || '',
       });
     } else {
       throw (result as ParsingError).message;

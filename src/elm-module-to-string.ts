@@ -2,7 +2,7 @@ import { codeBlock } from 'common-tags';
 import { ElmModule, ElmModuleExpose, ElmImport } from './types';
 
 interface Options {
-  elmFormatPath?: string;
+  banner?: string;
 }
 
 const generateExports = (exposing: ElmModuleExpose): string => {
@@ -31,7 +31,7 @@ const elmModuleToString = (
   return codeBlock`
     module ${elmModule.moduleName}${generateExports(elmModule.moduleExposing)}
     ${generateImports(elmModule.imports)}
-
+    ${options.banner ? `${options.banner}\n` : ''}
 
     ${elmModule.viewBody}
   `;

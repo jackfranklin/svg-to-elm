@@ -7,6 +7,7 @@ interface Options {
   elmFormatPath?: string;
   elmFormatElmVersion?: '0.19' | '0.18';
   outputPath: string;
+  banner?: string;
 }
 
 interface WriteResult {
@@ -19,7 +20,9 @@ const writeElmToDisk = (
   options: Options,
 ): Promise<WriteResult> => {
   return new Promise((resolve, reject) => {
-    const elmModuleAsString = elmModuleToString(module);
+    const elmModuleAsString = elmModuleToString(module, {
+      banner: options.banner,
+    });
     fs.writeFile(
       options.outputPath,
       elmModuleAsString,
