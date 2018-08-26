@@ -1,9 +1,11 @@
 import { ElmModule } from './types';
 import * as fs from 'fs';
 import elmModuleToString from './elm-module-to-string';
+import { exec } from 'child_process';
 
 interface Options {
   elmFormatPath?: string;
+  elmFormatElmVersion?: '0.19' | '0.18';
   outputPath: string;
 }
 
@@ -25,9 +27,24 @@ const writeElmToDisk = (
       err => {
         if (err) resolve({ success: false, error: err });
 
-        resolve({
-          success: true,
-        });
+        if (options.elmFormatPath != undefined) {
+          exec(
+            `${
+              options.elmFormatPath
+            } --elm-version ${options.elmFormatElmVersion || '0.19'} --yes ${
+              options.outputPath
+            }`,
+            (error, stdout, stderr) => {
+              if (error) reject({ error, success: false });
+
+              resolve({ success: true });
+            },
+          );
+        } else {
+          resolve({
+            success: true,
+          });
+        }
       },
     );
   });
