@@ -1,3 +1,7 @@
+# 0.4.0
+
+- generate `view: Html msg` on `view` function
+
 # 0.3.0
 
 - Support a `banner` option in `writeElmToDisk`.
