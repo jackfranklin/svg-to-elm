@@ -52,6 +52,22 @@ test('it writes valid Elm that can be compiled', async () => {
   }).catch(fail);
 });
 
+test('it writes valid Elm that can be compiled for a complex svg', async () => {
+  const fixture = path.resolve(__dirname, 'fixtures', 'free.svg');
+  const parserResult: ParserResult = await new Parser().parse(fixture, {
+    moduleName: 'Search',
+  });
+
+  await writeElmToDisk(parserResult as ElmModule, {
+    outputPath: TEST_OUTPUT,
+  });
+
+  await compileToString([TEST_OUTPUT], {
+    yes: true,
+    cwd: path.join(__dirname, 'test-output'),
+  }).catch(fail);
+});
+
 test('it can run elm-format', async () => {
   const fixture = path.resolve(__dirname, 'fixtures', 'search.svg');
   const parserResult: ParserResult = await new Parser().parse(fixture, {

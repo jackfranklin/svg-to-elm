@@ -70,7 +70,7 @@ describe('Parser', () => {
         children: [
           {
             element: 'path',
-            attributes: [{ name: 'foo', value: 'bar' }],
+            attributes: [{ name: 'd', value: 'bar' }],
             children: [],
           },
         ],

@@ -4,6 +4,8 @@ import * as util from 'util';
 import Svg, { Attribute, Child } from './svg';
 import { ElmModule } from './types';
 
+import { elementsMap, attributesMap } from './map-refs';
+
 export interface ParsingError {
   message: string;
   success: boolean;
@@ -27,7 +29,7 @@ interface XmlToJsResult {
   svg: XmlElement;
 }
 
-const ATTRIBUTE_BLACKLIST = ['xmlns'];
+const ATTRIBUTE_BLACKLIST = ['xmlns', 'xmlns:xlink'];
 
 const notOnBlacklist = (key: string) => ATTRIBUTE_BLACKLIST.indexOf(key) === -1;
 
@@ -35,13 +37,18 @@ const parseAttributesFromElement = (element: XmlElement): Attribute[] =>
   Object.keys(element.$)
     .filter(notOnBlacklist)
     .map(key => {
-      return { name: key, value: element.$[key] };
+      return { name: attributesMap[key.toLowerCase()], value: element.$[key] };
     });
 
 const parseChildren = (element: XmlElement): Child[] =>
   Object.keys(element)
     .filter(key => key !== '$')
+    .filter(key => elementsMap[key] !== null)
     .map(key => {
+      const elmElementName: string = elementsMap[key] as string;
+      if (!elmElementName) {
+        throw Error('Unknown element name ' + key);
+      }
       return {
         element: key,
         attributes: parseAttributesFromElement(element[key][0]),
