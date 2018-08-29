@@ -49,12 +49,15 @@ const parseChildren = (element: XmlElement): Child[] =>
       if (!elmElementName) {
         throw Error('Unknown element name ' + key);
       }
-      return {
+
+      return element[key].map(child => ({
         element: key,
-        attributes: parseAttributesFromElement(element[key][0]),
-        children: parseChildren(element[key][0]),
-      };
-    });
+        attributes: parseAttributesFromElement(child),
+        children: parseChildren(child),
+      }));
+
+    })
+    .reduce((acc, iter) => acc.concat(iter), []);
 
 class Parser {
   parse(
@@ -83,7 +86,6 @@ class Parser {
     return new Promise(resolve => {
       parseString(contents, (err, result: XmlToJsResult) => {
         const parentAttrs = parseAttributesFromElement(result.svg);
-
         const children = parseChildren(result.svg);
 
         resolve(new Svg(parentAttrs, children));
