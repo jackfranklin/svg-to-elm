@@ -48,6 +48,47 @@ view =
     ]);
   });
 
+  it('can parse svg contents with sibling children', async () => {
+    const fixture = path.resolve(__dirname, 'fixtures', 'clothing-button.svg');
+    const output: Svg = await new Parser().parseSvg(
+      fs.readFileSync(fixture, { encoding: 'utf8' }),
+    );
+
+
+    expect(output.children).toEqual([
+      {
+        element: 'path',
+        attributes: [
+          {
+            name: 'fillRule',
+            value: 'nonzero',
+          },
+          {
+            name: 'd',
+            value:
+              'M22 23.414L23.414 22 36.87 35.456l-1.414 1.414z',
+          },
+        ],
+        children: [],
+      },
+      {
+        element: 'path',
+        attributes: [
+          {
+            name: 'fillRule',
+            value: 'nonzero',
+          },
+          {
+            name: 'd',
+            value:
+              'M36.87 23.414L35.456 22 22 35.456l1.414 1.414z'
+          },
+        ],
+        children: [],
+      },
+    ]);
+  });
+  
   it('can parse svg children', async () => {
     const fixture = path.resolve(
       __dirname,
