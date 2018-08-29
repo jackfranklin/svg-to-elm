@@ -1,3 +1,7 @@
+# 0.5.0
+
+- Fix multiple children parsing bug.
+
 # 0.4.0
 
 - generate `view: Html msg` on `view` function
