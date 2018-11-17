@@ -1,3 +1,7 @@
+# 0.6.0
+
+- Add `viewWithAttributes` function that lets additional attributes be passed through to the SVG.
+
 # 0.5.0
 
 - Fix multiple children parsing bug.

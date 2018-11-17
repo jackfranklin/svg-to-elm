@@ -1,5 +1,5 @@
 import { codeBlock } from 'common-tags';
-import { ElmModule, ExposeAll, ExposeSome } from './types';
+import { ElmModule, ExposeAll, ExposeSome, ExposeNone } from './types';
 
 export type Attribute = {
   name: string;
@@ -24,7 +24,7 @@ class Svg {
   toElm(moduleName: string): ElmModule {
     const moduleExposing: ExposeSome<string> = {
       kind: 'SOME',
-      entries: ['view'],
+      entries: ['view', 'viewWithAttributes'],
     };
     const exposeAll: ExposeAll = { kind: 'ALL' };
     const exposeHtml: ExposeSome<string> = {
@@ -72,6 +72,12 @@ class Svg {
       svg [${svgAttributesToElm(this.attributes)}] [${svgChildrenToElm(
       this.children,
     )}]
+
+    viewWithAttributes: List (Html.Attribute msg) -> Html msg
+    viewWithAttributes attributes =
+      svg ([${svgAttributesToElm(
+        this.attributes,
+      )}] ++ attributes) [${svgChildrenToElm(this.children)}]
     `;
   }
 }

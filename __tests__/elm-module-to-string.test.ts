@@ -11,7 +11,9 @@ test('it can generate an elm module', async () => {
 
   const output = elmModuleToString(parserResult as ElmModule);
 
-  expect(output).toContain('module Search1 exposing (view)');
+  expect(output).toContain(
+    'module Search1 exposing (view, viewWithAttributes)',
+  );
   expect(output).toContain('import Svg exposing (..)');
   expect(output).toContain('import Svg.Attributes exposing (..)');
   expect(output).toContain('import Html exposing (Html)');
