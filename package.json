@@ -1,6 +1,6 @@
 {
   "name": "svg-to-elm",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Convert SVG to Elm HTML modules.",
   "main": "lib/src/index.js",
   "bin": {
