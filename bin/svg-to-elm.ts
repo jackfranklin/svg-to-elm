@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import Parser, { ParsingError } from '../src/parser';
 import { ElmModule } from '../src/types';
 
